@@ -4,7 +4,9 @@
 
 As sete etapas mostram O que acontece nesta etapa como conteúdo permanente, sem botão ou opção de fechar. Próximo passo, Voltar e os ícones preservam a navegação e a transição entre etapas. Pera junto à foto da seção Sobre removida. Todas as frutas da página com opacidade 1; a introdução e sua sequência de entrada/saída permanecem intactas.
 
-Encerramento e rodapé compartilham uma única superfície roxa animada, sem corte entre texturas, com um contexto WebGL a menos. Marca, endereço e contatos organizados em faixa compacta no desktop e duas colunas no celular. Informações, destinos, pausa, replay e privacidade preservados. O CTA flutuante dá lugar aos contatos do rodapé quando ele entra em cena, evitando sobreposição dos links.
+Encerramento e rodapé compartilham uma única superfície roxa animada, sem corte entre texturas, com um contexto WebGL a menos. As duas frutas da área final foram removidas conforme pedido posterior. Marca, endereço e contatos organizados em faixa compacta no desktop e duas colunas no celular. Informações, destinos, pausa, replay e privacidade preservados. O CTA flutuante dá lugar aos contatos do rodapé quando ele entra em cena, evitando sobreposição dos links.
+
+Revisão final MOBILE FIRST: ordem 390, 320, 768 e 1440 px. Zero frutas na área final, contatos com área de toque de 44 px no celular, rodapé sem sobreposição do CTA flutuante e sem overflow horizontal. Próximas análises do projeto sempre começam pelo celular.
 
 Ego: sete etapas com listas visíveis e sem controle de fechamento; clique no rótulo não recolhe o conteúdo. QA em 1440, 768, 390 e 320 px sem overflow horizontal, pera ausente e todas as frutas com opacidade 1. Rodapé com 220 px de altura no desktop e cerca de 370 px no celular. Pausa e movimento reduzido conferidos. Axe sem violações detectadas; contraste em canvas e três atributos ARIA permanecem inconclusivos. Sem aparelho físico ou Safari.
 

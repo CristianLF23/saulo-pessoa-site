@@ -92,7 +92,7 @@ html{scrollbar-gutter:stable}.menu-drawer{position:fixed;inset:0;width:100%;heig
 @media(min-width:761px){.closing-region .closing-inner{max-width:1256px}.continuation.closing-region .closing-inner h2{font-size:clamp(38px,4vw,58px)}}
 @media(max-width:1000px) and (min-width:761px){.continuation.closing-region .footer-top{grid-template-columns:115px minmax(230px,1fr) 205px;gap:23px}.footer-brand{width:110px}.footer-address,.continuation .footer-contact>a{font-size:12px}.continuation.closing-region .closing-orange{right:18%;width:100px}.continuation.closing-region .closing-banana{right:4%;width:100px}}
 @media(max-width:760px){
- .continuation.closing-region .closing{padding-top:48px;padding-bottom:72px;gap:0}
+ .continuation.closing-region .closing{padding-top:48px;padding-bottom:32px;gap:0}
  .continuation.closing-region .closing-orange,.continuation.closing-region .closing-banana{top:auto;bottom:8px;width:57px}
  .continuation.closing-region .closing-orange{left:22px;right:auto}.continuation.closing-region .closing-banana{right:22px;left:auto}
  .continuation.closing-region .closing-inner{padding:0}
