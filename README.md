@@ -29,7 +29,7 @@ Ver REVISAO-E-VALIDACAO.md para verificações e limites. Conferido em desktop, 
 
 Noindex e robots bloqueando indexação são intencionais nesta versão de revisão. Antes de publicar, revisar esses controles, canonical, sitemap, imagem social, privacidade e rastreamento consentido. Os links de contato usam os destinos oficiais do Saulo. Nenhum contato de teste foi enviado.
 
-Este repositório contém a fonte do site; o envio ao GitHub não ativa hospedagem.
+Prévia pública: https://cristianlf23.github.io/saulo-pessoa-site/ . Hospedada no GitHub Pages. O domínio oficial continua preservado; esta prévia mantém noindex e bloqueio de indexação.
 
 ## Prévia
 
