@@ -1,4 +1,22 @@
-# Saulo Pessoa: site completo V7
+# Saulo Pessoa: site completo V8
+
+## Revisão Nutrir a vida
+
+Revisão solicitada pelo usuário: mais alegria, profundidade no acompanhamento, informações recuperadas, ilustração botânica profissional e coreografia pela página. Site oficial e Engrena reinspecionados no Ego. Engrena forneceu o princípio de montagem e revelação, sem reutilização de sua identidade ou código.
+
+Ciclo com sete passos, navegação por botões e setas do teclado, Home e End, controles anterior/próximo e apoio a gesto horizontal no diagrama. Primeiro atendimento explica avaliação de cerca de uma hora e entrega do plano em cerca de quarenta minutos. Método mantém Entender, Vencer e Viver, com manutenção. Avaliação física volta com os dois exemplos autorizados do site original. Questionário e destinos preservados; quiz.js não foi alterado.
+
+Introdução de 4,4 segundos com logo original, seis ilustrações, texto HTML e íris SVG; pular, Escape, replay e segurança de sete segundos. Rolagem nativa, sem pin no celular. Shader claro com fallback, trajetória desenhada, deslocamentos discretos nas margens, relatórios, planos e fotografia. Texto mantém opacidade total durante as entradas para preservar contraste. O prato não reage ao mouse.
+
+Verificação V8 no Ego: 1440, 768, 390 e 320 sem overflow; imagens carregadas. Menu, ciclo por clique e teclado, três perguntas do exemplo e atualização da escala, modal de relatório e abertura da triagem conferidos. Vídeo 1920 por 1080, oito segundos, em reprodução na seção, pausa geral e pausa fora dela verificadas. Pausa geral resulta em zero ScrollTriggers; retomada reconstrói a coreografia. Sem JavaScript: sete passos e três fases visíveis. Movimento reduzido: intro oculta, replay oculto, canvas oculto, vídeo sem src e zero ScrollTriggers.
+
+Axe local: zero violações detectadas na coleta final. Itens inconclusivos preservados no JSON, sem alegar certificação WCAG. Sem erros JavaScript observados na coleta. Não testado em aparelho físico, Safari, leitor de tela ou recebimento real de mensagens; nenhum envio de teste realizado. Desempenho do shader tem resolução reduzida e limite de atualização no código, sem medição conclusiva de FPS.
+
+Assets: atlas botânico original gerado na ferramenta integrada, otimizado para WebP de aproximadamente 543 kB e reutilizado por sprites CSS. Nenhuma dependência de produção ou geração no Flow adicionada. Fontes e bibliotecas locais mantêm licenças arquivadas. Prévia pública mantém noindex, domínio oficial e destinos comerciais.
+
+Arquivos principais da revisão: index.html, experience.js, v8.css, v8.js, dois relatórios de avaliação física e botanical-atlas.webp.
+
+## Histórico de verificação da V7
 
 4 de novembro de 2026. Implementação local para revisão, sem publicação.
 

@@ -20,8 +20,9 @@ float space=p.x+bend+sin(p.y*2.4-t)*.13;
 float folds=sin(space*12.-p.y*3.8+t+uScroll*2.2);float silk=pow(.5+.5*folds,3.);
 float relief=smoothstep(.2,.95,flow+silk*.22);float right=smoothstep(.18,.9,uv.x);
 float lower=1.-smoothstep(.08,.7,uv.y);vec3 ink=vec3(.111,.049,.153);vec3 violet=vec3(.31,.17,.37);vec3 warm=vec3(.43,.25,.25);
-vec3 c=mix(ink,violet,relief*(.18+right*.38));c=mix(c,warm,silk*lower*(.13+uChapter*.045));
-float filament=pow(.5+.5*sin(space*27.+p.y*4.+uScroll*2.),26.);c+=vec3(.27,.18,.25)*filament*(.07+right*.13);
+ink=vec3(.961,.941,.910);violet=vec3(.81,.74,.86);warm=vec3(1.,.69,.39);
+vec3 c=mix(ink,violet,relief*(.06+right*.23));c=mix(c,warm,silk*lower*(.09+uChapter*.02));
+float filament=pow(.5+.5*sin(space*27.+p.y*4.+uScroll*2.),26.);c-=vec3(.25,.16,.20)*filament*(.02+right*.07);
 float grain=(hash(gl_FragCoord.xy)-.5)*.018;c+=grain;
 float readMask=1.-smoothstep(.0,.62,uv.x);c=mix(c,ink,readMask*.28);
 gl_FragColor=vec4(c,1.);}`;
@@ -48,6 +49,7 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden)introTimeli
 motion.addEventListener('click',()=>{state.paused=!state.paused;setupScroll();sync();});
 function setupScroll(){
  scrollContext?.revert();scrollContext=null;
+ window.dispatchEvent(new CustomEvent('saulo:motion',{detail:{enabled:!reduce.matches&&!save()&&!state.paused}}));
  all('.contour path').forEach(path=>path.setAttribute('d',innerWidth<761?'M1400 10C1320 260 1500 620 1320 850S1140 1010 1240 1110 40 1150 80 1450 1220 1730 1350 1880':desktopCurve));
  const contour=q('.contour-live'),length=contour.getTotalLength();
  if(reduce.matches||save()||state.paused||!window.gsap||!window.ScrollTrigger){contour.style.strokeDasharray='none';return;}
@@ -73,23 +75,32 @@ const intro=q('.intro'),curtain=q('.intro-curtain'),introLogo=q('#intro-logo');l
 function closeIntro(){
  clearTimeout(introTimer);introTimeline?.kill();introTimeline=null;state.intro=false;if(window.gsap)gsap.set('.hero-copy',{clearProps:'transform'});intro.hidden=true;curtain.hidden=true;q('.experience').inert=false;motion.inert=false;document.body.classList.remove('is-intro');q('#header-logo').style.visibility='';if(intro.contains(document.activeElement)){(introOrigin||q('.brand')).focus({preventScroll:true});}sync();
 }
-function introSeen(){try{return sessionStorage.getItem('saulo-site-v7')==='1';}catch{return false;}}
+function introSeen(){try{return sessionStorage.getItem('saulo-site-v8')==='1';}catch{return false;}}
 function showIntro(replay=false){
  if(reduce.matches||save()||!window.gsap||state.paused)return;
  introOrigin=replay?q('#replay'):null;window.scrollTo({top:0,behavior:'instant'});state.intro=true;intro.hidden=false;curtain.hidden=false;q('.experience').inert=true;motion.inert=true;document.body.classList.add('is-intro');q('#header-logo').style.visibility='hidden';q('#skip-intro').focus({preventScroll:true});
- try{sessionStorage.setItem('saulo-site-v7','1');}catch{}
- introTimer=setTimeout(closeIntro,4000);
- gsap.set(curtain,{clipPath:'inset(0% 0% 0% 0% round 0% 0% 0% 0%)'});gsap.set(introLogo,{x:0,y:0,scale:1,opacity:1,clipPath:'inset(0% 100% 0% 0%)'});gsap.set('.intro-curtain>p',{opacity:1,y:0});gsap.set('.intro-arc',{scale:.88,rotation:-30,opacity:0});gsap.set('.intro-line',{scaleX:0});gsap.set('#skip-intro',{opacity:1});
- const from=introLogo.getBoundingClientRect(),to=q('#header-logo').getBoundingClientRect();
- introTimeline=gsap.timeline({defaults:{ease:'power2.inOut'},onComplete:closeIntro});
- introTimeline.to(introLogo,{clipPath:'inset(0% 0% 0% 0%)',duration:.7,ease:'power2.out'},0)
- .to('.intro-arc',{scale:1,rotation:-20,opacity:1,duration:1.1},0)
- .to('.intro-line',{scaleX:1,duration:1.3,ease:'none'},0)
- .to('.intro-curtain>p',{y:-10,opacity:0,duration:.3},.95)
- .to(introLogo,{x:to.left-from.left,y:to.top-from.top,scale:to.width/from.width,duration:.65,ease:'power3.inOut'},1.0)
- .to(curtain,{clipPath:'inset(0% 0% 100% 0% round 0% 0% 45% 45%)',duration:.75,ease:'power3.inOut'},.95)
- .to('#skip-intro',{opacity:0,duration:.2},1.4)
- .fromTo('.hero-copy',{y:18},{y:0,duration:.55,ease:'power2.out'},1.1);
+ try{sessionStorage.setItem('saulo-site-v8','1');}catch{}
+ introTimer=setTimeout(closeIntro,7000);
+ gsap.set(curtain,{clearProps:'clipPath'});gsap.set('#welcome-opening',{attr:{r:0,cx:innerWidth/2,cy:innerHeight/2}});
+ gsap.set(introLogo,{x:0,y:12,scale:.95,opacity:0,clipPath:'inset(0% 0% 0% 0%)'});
+ gsap.set('.welcome-message>span,.welcome-message>em',{opacity:0,y:30});gsap.set('.welcome-caption',{opacity:0,y:8});
+ gsap.set('.welcome-rings',{opacity:1});gsap.set('.welcome-rings i',{scale:.75,opacity:0});gsap.set('#skip-intro',{opacity:1});
+ gsap.set('.welcome-fruit',{x:0,y:0,scale:.15,opacity:0});
+ introTimeline=gsap.timeline({defaults:{ease:'power3.out'},onComplete:closeIntro});
+ introTimeline.addLabel('acolher',0)
+ .to(introLogo,{opacity:1,y:0,scale:1,duration:.85},'acolher')
+ .to('.welcome-rings i',{opacity:1,scale:1,duration:1.5,stagger:.12},.1)
+ .to('.welcome-message>span,.welcome-message>em',{opacity:1,y:0,duration:.85,stagger:.18},.4)
+ .to('.welcome-fruit',{opacity:1,scale:1,duration:1.2,stagger:{each:.1,from:'center'}},.65)
+ .to('.welcome-caption',{opacity:1,y:0,duration:.65},1.3)
+ .addLabel('abrir',2.9)
+ .to('.welcome-message>span,.welcome-message>em,.welcome-caption',{y:-18,opacity:0,duration:.45,stagger:.04},'abrir')
+ .to(introLogo,{y:-25,opacity:0,duration:.45},'abrir')
+ .to('.welcome-fruit',{scale:1.12,opacity:0,x:i=>(i%2?1:-1)*80,y:i=>i<2?-60:70,duration:.85,stagger:.025,ease:'power2.in'},'abrir+=.1')
+ .to('.welcome-rings',{scale:1.18,opacity:0,duration:.8},'abrir+=.1')
+ .to('#welcome-opening',{attr:{r:Math.hypot(innerWidth,innerHeight)},duration:1.2,ease:'power3.inOut'},'abrir+=.3')
+ .to('#skip-intro',{opacity:0,duration:.2},'abrir+=1')
+ .fromTo('.hero-copy',{y:24},{y:0,duration:.8,ease:'power3.out'},'abrir+=.7');
 }
 q('#skip-intro').addEventListener('click',closeIntro);intro.addEventListener('keydown',event=>{if(event.key==='Escape')closeIntro();if(event.key==='Tab'){event.preventDefault();q('#skip-intro').focus();}});q('#replay').addEventListener('click',()=>showIntro(true));
 reduce.addEventListener('change',()=>{if(reduce.matches){closeIntro();video.hidden=true;poster.hidden=false;canvas.hidden=true;}else if(gl)canvas.hidden=false;setupScroll();sync();});connection?.addEventListener('change',()=>{if(save()){closeIntro();video.hidden=true;poster.hidden=false;canvas.hidden=true;}else if(gl)canvas.hidden=false;setupScroll();sync();});
