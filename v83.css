@@ -121,3 +121,37 @@ html{scrollbar-gutter:stable}.menu-drawer{position:fixed;inset:0;width:100%;heig
 .experience details[data-drawer][data-expanded="false"]>summary svg{transform:rotate(0)}
 .disclosure-body[inert]{pointer-events:none}
 @media(prefers-reduced-motion:reduce){.experience details[data-drawer]>summary svg{transition:none}}
+
+/* Behavior and training share the circular geometry of the care cycle. */
+.site-motif,.checkin-demo-icon{display:block;aspect-ratio:1;background:center/contain no-repeat;pointer-events:none}
+.site-motif{position:absolute}
+.motif-brain{background-image:url('assets/comportamento.svg')}
+.motif-training{background-image:url('assets/treino.svg')}
+.site-motif.hero-orange,.site-motif.hero-fig{width:clamp(56px,8vw,106px)}
+.site-motif.cycle-orange,.site-motif.cycle-pear{width:64px}
+
+.continuation .checkin-demo{width:100%;max-width:490px;justify-self:end;padding:clamp(18px,3vw,28px);border-radius:22px;box-shadow:0 12px 32px #2713360d;background:#fcf9f2}
+.checkin-demo-head{display:flex;gap:12px;align-items:center;padding-bottom:16px;border-bottom:1px solid #d8c9e2}
+.checkin-demo-icon{width:42px;flex:none}
+.checkin-demo-head h3{margin:0;font-size:16px;line-height:1.4;color:var(--purple)}
+.checkin-demo-head p,.checkin-note{font-size:13px;line-height:1.5;color:#66546c}
+.checkin-demo-head p{margin:3px 0 0}
+.checkin-question{width:fit-content;max-width:100%;margin:16px 0;padding:12px 15px;border-radius:16px 16px 16px 4px;background:#ede4f0;color:var(--purple);font-size:15px;line-height:1.55}
+.checkin-scale{display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:4px}
+.checkin-scale button{padding:0;min-width:0;min-height:44px;border:1px solid transparent;border-radius:8px;background:#ede4f0;color:var(--purple);font:inherit;font-size:13px;font-weight:650}
+.checkin-scale button[aria-pressed="true"]{background:var(--purple);color:var(--cream)}
+.checkin-scale button:focus-visible{outline-offset:1px}
+.checkin-note{margin:12px 0 0}
+
+.continuation .evolution-summary{display:block;margin:0 0 23px;padding-block:16px}
+.evolution-summary h3{margin:0 0 12px;font-size:18px;font-weight:700}
+.evolution-summary dl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin:0}
+.evolution-summary dt{font-size:15px;font-weight:700}
+.evolution-summary dd{margin:4px 0 0;color:var(--body-ink);font-size:14px;line-height:1.55}
+@media(max-width:1000px){
+ .checkin-scale{grid-template-columns:repeat(6,minmax(0,1fr));gap:5px}
+}
+@media(max-width:760px){
+ .site-motif.cycle-orange,.site-motif.cycle-pear{width:38px}
+ .evolution-summary dl{grid-template-columns:1fr;gap:12px}
+}

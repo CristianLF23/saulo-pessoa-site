@@ -39,7 +39,13 @@ drawer.addEventListener('keydown',e=>{if(e.key!=='Tab')return;const controls=$$(
 $$('a[href^="#"]',menu).forEach(a=>a.addEventListener('click',e=>{const target=$(a.getAttribute('href'));if(!target)return;e.preventDefault();closeMenu({target,immediate:e.detail===0,restoreFocus:false});}));
 drawerReduce.addEventListener('change',()=>{if(drawer.open&&drawerReduce.matches){drawerTimeline?.kill();if(drawerClosing)finishMenuClose();else{window.gsap?.set(drawerPanel,{xPercent:0});window.gsap?.set(drawerScrim,{opacity:1});window.gsap?.set($$('a',menu),{y:0,opacity:1});}}});
 addEventListener('resize',()=>{if(innerWidth>760&&drawer.open)closeMenu({immediate:true,restoreFocus:false});},{passive:true});
-const hunger=$('#hunger'),hungerValue=$('#hunger-value');hunger.addEventListener('input',()=>{hungerValue.value=hunger.value;hunger.style.setProperty('--value',Number(hunger.value)*10+'%');hunger.setAttribute('aria-valuetext',hunger.value+' de 10');});
+const checkinOptions = $$('.checkin-scale button');
+checkinOptions.forEach(option => {
+ option.disabled = false;
+ option.addEventListener('click', () => {
+  checkinOptions.forEach(button => button.setAttribute('aria-pressed', String(button === option)));
+ });
+});
 let disclosureFrame=0;
 const disclosureControllers=new WeakMap(),movingDisclosures=new Set();
 function refreshDisclosures(){cancelAnimationFrame(disclosureFrame);disclosureFrame=requestAnimationFrame(()=>window.sauloRefreshLayout?.());}

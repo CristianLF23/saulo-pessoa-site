@@ -1,4 +1,10 @@
-# Saulo Pessoa: site completo V8.8
+# Saulo Pessoa: revisão V8.9
+
+O feedback do Saulo orienta a troca dos adornos de fruta na página por ilustrações autorais de cérebro e anilha, com formas circulares da marca. A introdução aprovada conserva sua composição. Os dois SVGs foram desenhados para este projeto, sem material de terceiros.
+
+O check-in segue a demonstração do site oficial: pergunta sobre fome à noite, seleção de 0 a 10 e início em 4. A escala ocupa duas linhas em telas menores para facilitar o toque. Nenhuma resposta é enviada. A evolução ganhou resumo em texto, índice comportamental e explicação sobre treino, medicação, peso e cintura. As quatro páginas de exemplo já coincidiam com os arquivos oficiais publicados. A primeira mostra resumo e mensagem, e os dados são fictícios.
+
+Fontes: https://saulopessoanutri.com.br/#checkin e https://saulopessoanutri.com.br/#relatorio. Revisão mobile first em 390 e 320 px, seguida de desktop. Seleção por toque e teclado, ampliação do relatório, carrossel e encaixe na tela conferidos.
 
 ## Gavetas e revelações de rolagem V8.8
 

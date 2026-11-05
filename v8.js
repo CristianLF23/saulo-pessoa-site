@@ -4,7 +4,7 @@ const one=s=>document.querySelector(s),all=s=>[...document.querySelectorAll(s)];
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
 let motionEnabled=one('#motion').getAttribute('aria-pressed')!=='true';
 const eligible=()=>motionEnabled&&!reduced.matches&&!navigator.connection?.saveData;
-let cycle=0,cycleTween=null,motionContext=null,question=0;
+let cycle=0,cycleTween=null,motionContext=null;
 const stops=all('[data-cycle]'),panels=all('.cycle-panel');
 const cyclePosition={p:0},cycleRoute=one('.cycle-route'),cycleLength=cycleRoute.getTotalLength();
 function paintCycle(){
@@ -53,21 +53,6 @@ let touchStart=null;
 one('.cycle-map').addEventListener('pointerdown',e=>{if(e.pointerType==='touch')touchStart={x:e.clientX,y:e.clientY};});
 one('.cycle-map').addEventListener('pointerup',e=>{if(!touchStart)return;const dx=e.clientX-touchStart.x,dy=e.clientY-touchStart.y;touchStart=null;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.6)selectCycle((cycle+(dx<0?1:6))%7);});
 one('.cycle-map').addEventListener('pointercancel',()=>touchStart=null);
-const demoQuestions=[
- {q:'Como estava sua fome à noite nesta semana?',label:'Fome à noite, de zero a dez',low:'Sem fome',high:'Muita fome',a:'O número abre uma conversa.',b:'O contexto dá sentido a ele.'},
- {q:'Como foi a qualidade do seu sono nesta semana?',label:'Qualidade do sono, de zero a dez',low:'Muito ruim',high:'Muito boa',a:'O cuidado olha para além do prato.',b:'Seu descanso também entra na conversa.'},
- {q:'Quanto o plano coube na sua rotina nesta semana?',label:'Como o plano coube na rotina, de zero a dez',low:'Não coube',high:'Coube muito bem',a:'A rotina real é o ponto de partida.',b:'A estratégia pode ser ajustada.'}
-];
-const saved=[5,5,5],input=one('#hunger');
-input.addEventListener('input',()=>saved[question]=Number(input.value));
-all('[data-demo]').forEach((b,i)=>b.addEventListener('click',()=>{
- question=i;const data=demoQuestions[i];
- all('[data-demo]').forEach((v,j)=>v.setAttribute('aria-pressed',String(i===j)));
- one('#demo-question').textContent=data.q;one('#demo-input-label').textContent=data.label;
- one('.range-labels span:first-child').textContent=data.low;one('.range-labels span:last-child').textContent=data.high;
- const message=one('.demo-message p');message.replaceChildren(document.createTextNode(data.a),document.createElement('br'));const strong=document.createElement('strong');strong.textContent=data.b;message.append(strong);
- input.value=saved[i];input.dispatchEvent(new Event('input'));
-}));
 function buildMotion(){
  motionContext?.revert();motionContext=null;
  if(!eligible()||!window.gsap||!window.ScrollTrigger||document.body.classList.contains('is-intro'))return;
