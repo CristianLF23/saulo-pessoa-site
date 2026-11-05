@@ -8,15 +8,14 @@ let threadLength=1,threadHeight=1;
 function sizeThread(){
  const area=q('.experience'),svg=q('.page-thread'),w=area.clientWidth,h=area.scrollHeight,mobile=w<761;
  threadHeight=h;svg.setAttribute('viewBox',`0 0 ${w} ${h}`);
- let y=mobile?430:245;
- let x=w-(mobile?13:28);
- let d=mobile?`M18 97C${w*.35} 76 ${w*.8} 110 ${x} ${y}`:`M24 130C${w*.26} 62 ${w*.72} 75 ${x} ${y}`;
+ // Keep the continuous line in the outer gutter, clear of reading and controls.
+ const left=mobile?6:18,right=mobile?12:Math.min(56,w*.04);
+ let y=110,x=left,d=`M${x} ${y}`;
  const origin=area.getBoundingClientRect().top;
  const stops=all('main>section,.continuation>section').map(s=>s.getBoundingClientRect().bottom-origin+20).filter(v=>v>y+90&&v<h-80);
  for(const [i,end] of [...stops,h-25].entries()){
-  if(end<=y)continue;const span=end-y,endX=i%2?(mobile?w-13:w*.91):(mobile?16:w*.08);
-  // Broad, continuously descending sweeps retain the original hand-drawn rhythm.
-  d+=`C${x} ${y+span*.23} ${i%2?(mobile?w*.9:w*.96):(mobile?w*.12:w*.04)} ${y+span*.64} ${endX} ${end}`;y=end;x=endX;
+  if(end<=y)continue;const span=end-y,endX=i%2?left:right;
+  d+=`C${x} ${y+span*.36} ${endX} ${y+span*.64} ${endX} ${end}`;y=end;x=endX;
  }
  all('.page-thread path').forEach(p=>p.setAttribute('d',d));threadLength=q('.contour-live').getTotalLength();
 }

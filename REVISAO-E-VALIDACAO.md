@@ -1,4 +1,12 @@
-# Saulo Pessoa: site completo V8.3
+# Saulo Pessoa: site completo V8.5
+
+## Ajustes de hierarquia V8.5
+
+Frutas removidas do Método Vincere e kiwi removido do FAQ. O nome do método usa laranja #ED902B; as três fases ganham pequenas setas SVG. Frutas adicionais passam ao background nas margens e espaços de transição, sem reservar espaço em títulos. Frutas da introdução, hero e segunda dobra preservadas, inclusive opacidade, posições e animação.
+
+O traço contínuo acompanha a margem: x=18 a 56 px no desktop e 6 a 12 px no celular, com opacidade reduzida. Não cruza os textos. Lavanda claro do ciclo e dos relatórios preservado. Shader roxo anterior reaproveitado somente no roxo forte existente: método, plano destacado, encerramento e rodapé. Baixa resolução, 30 fps, atividade por visibilidade, pausa global e fallback estático preservados.
+
+Verificação no Ego em 1440, 768, 390 e 320 px sem overflow horizontal; quatro frutas protegidas mantêm opacidades 1, 1, 0.95 e 1. Três fases funcionam por clique e teclado, sem alterar a posição de leitura. Axe não detectou violações; contraste sobre canvas exige revisão visual e permanece inconclusivo na ferramenta. Sem validação em aparelho físico ou Safari.
 
 Atualização de introdução: a apresentação é executada em todo carregamento ou recarregamento da página, sem bloqueio por sessionStorage. Pular, Escape, movimento reduzido e economia de dados continuam respeitados.
 

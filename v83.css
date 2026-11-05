@@ -16,3 +16,48 @@ html{scrollbar-gutter:stable}.menu-drawer{position:fixed;inset:0;width:100%;heig
 .continuation .included .included-context{color:#66546C}
 .no-script-nav{display:flex;flex-wrap:wrap;gap:0 24px;padding-block:16px;border-bottom:1px solid #27133626}.no-script-nav a{font-size:14px;display:flex;align-items:center;min-height:44px;text-underline-offset:5px}
 .cycle-detail-body{display:flow-root}
+
+/* The botanical layer lives in the gutters, never in the reading flow. */
+.experience .botanical:not(.welcome-fruit){pointer-events:none}
+.experience .botanical:where(:not(.welcome-fruit,.hero-orange,.hero-fig,.cycle-orange,.cycle-pear)){opacity:.45}
+.continuation .weekly,.continuation .voices{position:relative;isolation:isolate}
+.continuation .weekly>.wrap,.continuation .voices>.wrap{position:relative;z-index:1}
+.experience .included-papaya{position:absolute;float:none;width:64px;left:max(8px,calc((100% - 1256px)/2 - 76px));right:auto;top:67%;bottom:auto;margin:0;z-index:0;opacity:.24}
+.experience .voices-cherry{position:absolute;width:83px;left:auto;right:max(12px,calc((100% - 1256px)/2 - 67px));top:-49px;z-index:0;opacity:.3}
+.continuation .voices h2{padding-right:0}
+.experience .weekly-avocado{left:max(12px,calc((100% - 1256px)/2 - 70px));right:auto;top:31%;width:80px;opacity:.3}
+.continuation .weekly>.wrap .weekly-avocado{left:-76px;width:64px}
+.experience .closing>.botanical{opacity:.3;z-index:0}
+.continuation .closing-inner{position:relative;z-index:1}
+.page-thread .contour-ghost{opacity:.055;stroke-width:.8}
+.page-thread .contour-live{opacity:.2;stroke-width:1}
+.page-thread .thread-tip{r:2;opacity:.35;stroke-width:1}
+
+/* The original silk shader is limited to previously dark purple surfaces. */
+.method .method-name{color:var(--orange)}
+.method .method-console{background:#21102E88}
+.mountain-stops .phase-tab strong{display:flex;align-items:center;gap:5px;padding:5px 7px}
+.mountain-stops .phase-tab .phase-hint{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:transform .18s var(--ease)}
+.mountain-stops .phase-tab:focus-visible{outline:2px solid #ED902B;outline-offset:5px;border-radius:4px}
+.mountain-stops .phase-tab:active>span{scale:.96}
+.continuation .plan-featured[data-violet]{background:#281232!important;isolation:isolate}
+.continuation .plan-featured>.violet-surface{border-radius:inherit}
+.continuation .plan-featured>*:not(.violet-surface){position:relative}
+.continuation .plan-featured>.plan-tag{position:absolute}
+.continuation .footer[data-violet]{background:#281232;isolation:isolate}
+@media(hover:hover) and (pointer:fine){.mountain-stops .phase-tab:hover .phase-hint{transform:translateX(2px)}}
+@media(max-width:1000px){.experience .included-papaya{left:9px;width:75px;top:auto;bottom:0}.continuation .weekly>.wrap .weekly-avocado{left:-15px;width:64px;top:-42px}.experience .voices-cherry{right:14px;width:65px;top:-45px}}
+@media(max-width:760px){
+ .experience .botanical:where(:not(.welcome-fruit,.hero-orange,.hero-fig,.cycle-orange,.cycle-pear)){opacity:.35}
+ .experience .included-papaya{width:50px;left:5px;bottom:0;opacity:.15}
+ .experience .voices-cherry{width:60px;top:-42px;right:12px;opacity:.24}
+ .continuation .voices h2{padding-right:0;font-size:28px}
+ .experience .weekly-avocado{opacity:.25}
+ .experience .closing>.botanical{position:absolute;order:initial;top:auto;bottom:15px;width:75px;margin:0;opacity:.18}
+ .experience .closing-orange{left:8px;right:auto}.experience .closing-banana{left:auto;right:8px}
+ .page-thread .contour-live{opacity:.13}.page-thread .contour-ghost{opacity:.035}.page-thread .thread-tip{opacity:.22}
+ .mountain-stops .phase-tab strong{gap:3px;padding:5px}
+ .mountain-stops .phase-tab .phase-hint{width:12px;height:12px}
+}
+@media(max-width:360px){.continuation .voices h2{font-size:25px}.mountain-stops .phase-tab strong{font-size:10px}.mountain-stops .phase-tab .phase-hint{width:11px;height:11px}}
+@media(prefers-reduced-motion:reduce){.mountain-stops .phase-tab .phase-hint{transition:none}}
