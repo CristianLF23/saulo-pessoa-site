@@ -1,4 +1,23 @@
-# Saulo Pessoa: site completo V8.2
+# Saulo Pessoa: site completo V8.3
+
+## Refinamento V8.3
+
+| Antes | Depois | Motivo |
+| --- | --- | --- |
+| Intro devolvia foco para a logo | Foco retorna ao conteúdo da hero | Evitar a borda de foco automática na marca, preservando foco visível de teclado |
+| Menu abria no fluxo da página | Gaveta modal com scrim, Escape e foco contido | Navegação lateral fluida sem deslocar o conteúdo |
+| Toggle disparava refresh global com scrollTo(0,0) | Recálculo das instâncias e do traço sem reset global | Preservar o ponto de leitura |
+| Seis variedades de frutas | Quatro variedades adicionais e cinco elementos pequenos | Complementar a composição sem disputar atenção |
+
+Gaveta: entrada GSAP 340 ms e saída 230 ms, sem animação em teclado ou reduced motion; largura com 32 px de espaço externo. Navegação fecha antes de rolar até a seção, hash preservado. Scrim, Escape, controle de fechamento e retorno ao disparador. Indicador de foco permanece ao navegar por teclado. Não envia mensagens.
+
+Frutas novas em atlas original transparente, otimizado para WebP de aproximadamente 382 kB. Kiwi e uvas no método, mamão junto aos itens incluídos, cerejas nos depoimentos e kiwi nas dúvidas. Matriz e prompt preservados na entrega. Roxo do método reforçado no shader original.
+
+QA local no Ego: três itens incluídos abrem com rolagem suave ativa, sem chamadas scrollTo e sem sair da posição em desktop; celular registrou apenas arredondamento de cerca de 1 px. Gaveta prende Tab e Shift+Tab, fecha por Escape, devolve foco e navega ao acompanhamento. Reduced motion abre imediatamente. Logo tem borda zero, outline none e foco no hero-content após a intro. Sem overflow nas quatro larguras 1440, 390, 320 e 768. Frutas novas sem cortes horizontais; verificação dos glifos confirma cerejas fora do texto do título.
+
+Axe no documento e na gaveta: zero violações detectadas; inconclusivos preservados. Sem erros JS observados. Limites: sem aparelho físico, Safari, leitor de tela ou envio real de mensagens. Nenhuma dependência de produção instalada. Quiz e destinos comerciais preservados.
+
+Verificação final: clique externo na faixa de 32 px fecha a gaveta, Escape devolve foco ao menu, Tab e Shift+Tab permanecem dentro do modal. Foco da logo após a intro ausente; foco visível de teclado preservado. Sem JavaScript: navegação alternativa com sete links, sete etapas e WhatsApp. HTML autossuficiente conferido com seis folhas de estilo incorporadas, zero scripts externos, novas frutas incorporadas e gaveta funcional.
 
 ## Revisão V8.2, 5 de novembro
 

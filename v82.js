@@ -46,7 +46,7 @@ track.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag
 function endDrag(){if(!drag)return;if(drag.active){suppressClick=true;track.classList.remove('is-dragging');if(track.hasPointerCapture(drag.id))track.releasePointerCapture(drag.id);setTimeout(()=>suppressClick=false,0);}drag=null;}
 track.addEventListener('pointerup',endDrag);track.addEventListener('pointercancel',endDrag);
 track.addEventListener('click',e=>{if(suppressClick){e.preventDefault();e.stopImmediatePropagation();}},true);
-new ResizeObserver(()=>{updateReports();window.ScrollTrigger?.refresh();}).observe(track);
+new ResizeObserver(()=>{updateReports();window.sauloRefreshLayout?.();}).observe(track);
 cards.forEach(card=>card.querySelector('img').loading='eager');
 document.fonts?.ready.then(updateReports);updateReports();
 })();

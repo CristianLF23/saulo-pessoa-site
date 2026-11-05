@@ -47,7 +47,7 @@ float relief=smoothstep(.2,.95,flow+silk*.22);float right=smoothstep(.18,.9,uv.x
 float lower=1.-smoothstep(.08,.7,uv.y);vec3 ink=vec3(.111,.049,.153);vec3 violet=vec3(.31,.17,.37);vec3 warm=vec3(.43,.25,.25);
 ink=vec3(.961,.941,.910);violet=vec3(.81,.74,.86);warm=vec3(1.,.69,.39);
 vec3 c=mix(ink,violet,relief*(.06+right*.23));c=mix(c,warm,silk*lower*(.09+uChapter*.02));
-if(uViolet>.5){ink=vec3(.111,.049,.153);violet=vec3(.31,.17,.37);warm=vec3(.43,.25,.25);c=mix(ink,violet,relief*(.25+right*.5));c=mix(c,warm,silk*lower*.16);}
+if(uViolet>.5){ink=vec3(.111,.049,.153);violet=vec3(.40,.22,.47);warm=vec3(.43,.25,.25);c=mix(ink,violet,relief*(.32+right*.56));c=mix(c,warm,silk*lower*.12);c+=vec3(.12,.055,.15)*silk*.18;}
 float filament=pow(.5+.5*sin(space*27.+p.y*4.+uScroll*2.),26.);c-=vec3(.25,.16,.20)*filament*(.02+right*.07);
 float grain=(hash(gl_FragCoord.xy)-.5)*.018;c+=grain;
 float readMask=1.-smoothstep(.0,.62,uv.x);c=mix(c,ink,readMask*.28);
@@ -127,7 +127,7 @@ function updateMountain(index){
 updateMountain(0);
 const intro=q('.intro'),curtain=q('.intro-curtain'),introLogo=q('#intro-logo');let introOrigin=null;
 function closeIntro(){
- clearTimeout(introTimer);introTimeline?.kill();introTimeline=null;state.intro=false;if(window.gsap)gsap.set('.hero-copy',{clearProps:'transform'});intro.hidden=true;curtain.hidden=true;q('.experience').inert=false;motion.inert=false;document.body.classList.remove('is-intro');q('#header-logo').style.visibility='';if(intro.contains(document.activeElement)){(introOrigin||q('.brand')).focus({preventScroll:true});}sync();
+ clearTimeout(introTimer);introTimeline?.kill();introTimeline=null;state.intro=false;if(window.gsap)gsap.set('.hero-copy',{clearProps:'transform'});intro.hidden=true;curtain.hidden=true;q('.experience').inert=false;motion.inert=false;document.body.classList.remove('is-intro');q('#header-logo').style.visibility='';if(intro.contains(document.activeElement)){(introOrigin||q('#hero-content')).focus({preventScroll:true});}sync();
 }
 function introSeen(){try{return sessionStorage.getItem('saulo-site-v8')==='1';}catch{return false;}}
 function showIntro(replay=false){
@@ -161,6 +161,12 @@ reduce.addEventListener('change',()=>{if(reduce.matches){closeIntro();video.hidd
 let lastWidth=innerWidth;let resizeTimer;addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{if(state.intro)closeIntro();resize();if(Math.abs(lastWidth-innerWidth)>30){lastWidth=innerWidth;setupScroll();}},120);},{passive:true});
 if(!reduce.matches&&!save())setupGL();else canvas.hidden=true;
 window.ScrollTrigger?.addEventListener('refreshInit',sizeThread);
+// Content disclosures need new measurements, not the global reset-to-top refresh.
+window.sauloRefreshLayout=()=>{
+ sizeThread();if(!window.ScrollTrigger)return;
+ ScrollTrigger.getAll().forEach(trigger=>trigger.refresh());ScrollTrigger.update();
+ if(!reduce.matches&&!save()&&!state.paused)paintThread(Math.max(0,Math.min(1,scrollY/Math.max(1,threadHeight-innerHeight))));
+};
 setupScroll();sync();
 if(!introSeen()||new URLSearchParams(location.search).get('intro')==='1')showIntro();
 document.fonts?.ready.then(()=>window.ScrollTrigger?.refresh());

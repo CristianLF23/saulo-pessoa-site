@@ -1,6 +1,8 @@
 # Saulo Pessoa
 
-Site completo V8.2 do nutricionista Saulo Pessoa. Direção visual Nutrir a vida: fotografia real na abertura, ilustrações botânicas originais, introdução em três atos, base clara com roxo procedural em duas seções e movimento coordenado com GSAP.
+Site completo V8.3 do nutricionista Saulo Pessoa. Direção visual Nutrir a vida: fotografia real na abertura, ilustrações botânicas originais, introdução em três atos, base clara com roxo procedural em duas seções e movimento coordenado com GSAP.
+
+Revisão atual: quatro variedades adicionais, menu mobile em gaveta, foco da intro corrigido e recálculo local dos detalhes sem salto ao topo. Relatórios, montanha, ciclo e conversão preservados.
 
 Refinamento atual: ciclo com percurso contínuo e pausa, montanha interativa do Método Vincere, prato central girando no próprio eixo, carrossel horizontal de relatórios e linha orgânica acompanhando a rolagem até o rodapé. Frutas com margens seguras e textos decorativos reduzidos. Gama e atendimento online destacados antes da ação principal.
 
@@ -26,6 +28,7 @@ Acesse http://localhost:8000.
 - content.css: estilos das demais seções.
 - v8.css e v8.js: sistema gráfico botânico, ciclo, exemplos de check-in e coreografia de rolagem.
 - v82.css e v82.js: refinamentos, órbita contínua, rotação do prato e carrossel nativo.
+- v83.css: variedades adicionais e gaveta; site.js controla navegação modal e detalhes.
 - quiz.js: questionário e encaminhamento por ação explícita.
 - assets/: fotografias, fontes, vídeo de 8 segundos em 1920 por 1080, bibliotecas locais e licenças.
 

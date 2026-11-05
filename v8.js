@@ -31,7 +31,7 @@ function selectCycle(index,focus=false){
   strokes.forEach(shape=>{const length=shape.getTotalLength();cycleTween.fromTo(shape,{strokeDasharray:length,strokeDashoffset:length},{strokeDashoffset:0,duration:.55,ease:'power2.out'},.06);});
  }else{cyclePosition.p=index/7;paintCycle();}
  if(focus)stops[index].focus({preventScroll:true});
- window.dispatchEvent(new CustomEvent('saulo:cycle-selection'));window.ScrollTrigger?.refresh();
+ window.dispatchEvent(new CustomEvent('saulo:cycle-selection'));window.sauloRefreshLayout?.();
 }
 stops.forEach((b,i)=>{
  b.addEventListener('click',()=>selectCycle(i));
@@ -46,7 +46,7 @@ function fitCyclePanels(){
  holder.style.minHeight=Math.ceil(height)+'px';
 }
 fitCyclePanels();let panelWidth=0;
-new ResizeObserver(([entry])=>{if(Math.abs(entry.contentRect.width-panelWidth)<1)return;panelWidth=entry.contentRect.width;fitCyclePanels();window.ScrollTrigger?.refresh();}).observe(one('.cycle-panels'));
+new ResizeObserver(([entry])=>{if(Math.abs(entry.contentRect.width-panelWidth)<1)return;panelWidth=entry.contentRect.width;fitCyclePanels();window.sauloRefreshLayout?.();}).observe(one('.cycle-panels'));
 let touchStart=null;
 one('.cycle-map').addEventListener('pointerdown',e=>{if(e.pointerType==='touch')touchStart={x:e.clientX,y:e.clientY};});
 one('.cycle-map').addEventListener('pointerup',e=>{if(!touchStart)return;const dx=e.clientX-touchStart.x,dy=e.clientY-touchStart.y;touchStart=null;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.6)selectCycle((cycle+(dx<0?1:6))%7);});
