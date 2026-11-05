@@ -1,4 +1,10 @@
-# Saulo Pessoa: revisão V8.9
+# Saulo Pessoa: revisão V8.10
+
+As ilustrações de comportamento e treino seguem o acabamento de gravura das frutas anteriores, com textura, volume e recorte transparente. A introdução reúne cérebro, anilha, diário, halter, cronômetro e tênis. O cérebro e a anilha também aparecem na primeira dobra e no ciclo, e o cérebro identifica o check-in.
+
+Um atlas WebP local de 720 × 480 px e 97.804 bytes reúne as seis imagens. Revisão visual mobile first em 390 × 844 e 320 × 640, seguida de desktop em 1440 × 950. Os seis objetos aparecem dentro da tela sem cobrir marca ou mensagem. A animação existente continua a respeitar movimento reduzido.
+
+## Feedback do Saulo V8.9
 
 O feedback do Saulo orienta a troca dos adornos de fruta na página por ilustrações autorais de cérebro e anilha, com formas circulares da marca. A introdução aprovada conserva sua composição. Os dois SVGs foram desenhados para este projeto, sem material de terceiros.
 

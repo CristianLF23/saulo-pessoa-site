@@ -122,13 +122,25 @@ html{scrollbar-gutter:stable}.menu-drawer{position:fixed;inset:0;width:100%;heig
 .disclosure-body[inert]{pointer-events:none}
 @media(prefers-reduced-motion:reduce){.experience details[data-drawer]>summary svg{transition:none}}
 
-/* Behavior and training share the circular geometry of the care cycle. */
-.site-motif,.checkin-demo-icon{display:block;aspect-ratio:1;background:center/contain no-repeat;pointer-events:none}
-.site-motif{position:absolute}
-.motif-brain{background-image:url('assets/comportamento.svg')}
-.motif-training{background-image:url('assets/treino.svg')}
-.site-motif.hero-orange,.site-motif.hero-fig{width:clamp(56px,8vw,106px)}
-.site-motif.cycle-orange,.site-motif.cycle-pear{width:64px}
+/* One transparent atlas for the editorial objects on the page and in the intro. */
+.site-motif,.checkin-demo-icon,.welcome-fruit[class*="motif-"]{
+ display:block;
+ aspect-ratio:1;
+ background-image:url('assets/habitos-editorial.webp');
+ background-size:300% 200%;
+ background-repeat:no-repeat;
+ pointer-events:none;
+}
+.site-motif,.welcome-fruit[class*="motif-"]{position:absolute}
+.motif-brain{background-position:0 0}
+.motif-training{background-position:50% 0}
+.motif-journal{background-position:100% 0}
+.motif-dumbbell{background-position:0 100%}
+.motif-stopwatch{background-position:50% 100%}
+.motif-sneaker{background-position:100% 100%}
+.site-motif.hero-orange,.site-motif.hero-fig{width:clamp(66px,9vw,126px)}
+.site-motif.cycle-orange,.site-motif.cycle-pear{width:78px}
+.welcome-fruit[class*="motif-"]{transform-origin:center}
 
 .continuation .checkin-demo{width:100%;max-width:490px;justify-self:end;padding:clamp(18px,3vw,28px);border-radius:22px;box-shadow:0 12px 32px #2713360d;background:#fcf9f2}
 .checkin-demo-head{display:flex;gap:12px;align-items:center;padding-bottom:16px;border-bottom:1px solid #d8c9e2}
@@ -152,6 +164,6 @@ html{scrollbar-gutter:stable}.menu-drawer{position:fixed;inset:0;width:100%;heig
  .checkin-scale{grid-template-columns:repeat(6,minmax(0,1fr));gap:5px}
 }
 @media(max-width:760px){
- .site-motif.cycle-orange,.site-motif.cycle-pear{width:38px}
+ .site-motif.cycle-orange,.site-motif.cycle-pear{width:43px}
  .evolution-summary dl{grid-template-columns:1fr;gap:12px}
 }
