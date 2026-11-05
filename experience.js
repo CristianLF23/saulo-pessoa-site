@@ -126,6 +126,7 @@ function updateMountain(index){
 updateMountain(0);
 const intro=q('.intro'),curtain=q('.intro-curtain'),introLogo=q('#intro-logo');let introOrigin=null;
 function closeIntro(){
+ if(state.intro)window.scrollTo({top:0,behavior:'instant'});
  clearTimeout(introTimer);introTimeline?.kill();introTimeline=null;state.intro=false;if(window.gsap)gsap.set('.hero-copy',{clearProps:'transform'});intro.hidden=true;curtain.hidden=true;q('.experience').inert=false;motion.inert=false;document.body.classList.remove('is-intro');q('#header-logo').style.visibility='';if(intro.contains(document.activeElement)){(introOrigin||q('#hero-content')).focus({preventScroll:true});}sync();
 }
 function showIntro(replay=false){

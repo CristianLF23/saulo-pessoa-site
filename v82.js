@@ -2,7 +2,7 @@
 (()=>{
 const q=s=>document.querySelector(s),all=s=>[...document.querySelectorAll(s)];
 const reduce=matchMedia('(prefers-reduced-motion: reduce)');
-let enabled=q('#motion').getAttribute('aria-pressed')!=='true',playing=!document.hidden,cycleVisible=false,plateVisible=false,cyclePaused=false;
+let enabled=q('#motion').getAttribute('aria-pressed')!=='true',playing=!document.hidden,cycleVisible=false,plateVisible=false;
 const permitted=()=>enabled&&playing&&!reduce.matches&&!navigator.connection?.saveData&&!document.body.classList.contains('is-intro');
 const orbit={p:0};let pass=-1;
 const loop=window.gsap?gsap.to(orbit,{p:1,duration:18,repeat:-1,ease:'none',paused:true,onUpdate:()=>{
@@ -11,14 +11,10 @@ const loop=window.gsap?gsap.to(orbit,{p:1,duration:18,repeat:-1,ease:'none',paus
 }}):null;
 const turn=window.gsap?gsap.to('.plate-turn',{rotation:360,duration:65,repeat:-1,ease:'none',paused:true}):null;
 function sync(){
- const can=permitted();if(can&&cycleVisible&&!cyclePaused)loop?.resume();else loop?.pause();
+ const can=permitted();if(can&&cycleVisible)loop?.resume();else loop?.pause();
  if(can&&plateVisible)turn?.resume();else turn?.pause();
- q('#cycle-motion').hidden=reduce.matches||Boolean(navigator.connection?.saveData)||!loop;
- q('#cycle-motion').disabled=!enabled;
- q('#cycle-motion').textContent=cyclePaused?'Retomar ciclo':'Pausar ciclo';q('#cycle-motion').setAttribute('aria-pressed',String(cyclePaused));
  if(!can)all('.cycle-stop').forEach(n=>n.classList.remove('is-passing'));
 }
-q('#cycle-motion').addEventListener('click',()=>{cyclePaused=!cyclePaused;sync();});
 new IntersectionObserver(([e])=>{cycleVisible=e.isIntersecting;sync();},{threshold:.05}).observe(q('.cycle-map'));
 new IntersectionObserver(([e])=>{plateVisible=e.isIntersecting;sync();},{threshold:.04}).observe(q('.food-scene'));
 addEventListener('saulo:motion',e=>{enabled=e.detail.enabled;sync();});

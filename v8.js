@@ -70,7 +70,7 @@ all('[data-demo]').forEach((b,i)=>b.addEventListener('click',()=>{
 }));
 function buildMotion(){
  motionContext?.revert();motionContext=null;
- if(!eligible()||!window.gsap||!window.ScrollTrigger)return;
+ if(!eligible()||!window.gsap||!window.ScrollTrigger||document.body.classList.contains('is-intro'))return;
  gsap.registerPlugin(ScrollTrigger);
  const mobile=innerWidth<761;
  motionContext=gsap.context(()=>{
@@ -81,19 +81,27 @@ function buildMotion(){
    const delta=Number(el.dataset.drift)*(mobile?.45:1);
   gsap.fromTo(el,{y:delta*.12},{y:-delta*.12,ease:'none',scrollTrigger:{trigger:el.closest('section'),start:'top bottom',end:'bottom top',scrub:.7,invalidateOnRefresh:true}});
   });
-  all('main section').forEach(section=>{
-   const heading=section.querySelector('h2');if(!heading)return;
-   gsap.from(heading,{y:mobile?14:26,duration:.8,ease:'power3.out',scrollTrigger:{trigger:heading,start:'top 92%',once:true}});
+  // Reveal reading groups in document order; text never tracks scroll continuously.
+  const revealSelectors=['.cycle-heading>*','.cycle-stage','.cycle-reading','.method-name','.method-copy','.method-console','.maintenance','.life-copy','.food-scene','.weekly-layout>div:first-child','.checkin-demo','.included>div:first-child','.included-items>details','.reports .section-top>*','.report-toolbar','.report-grid','.report-details','.report-note','.physical-disclosure','.medication>*','.plans .section-top>*','.plan','.plan-notes','.discover','.about-photo','.about-copy>h2','.about-copy>p','.education','.congress-photo','.voices h2','.voice-grid>figure','.faq-intro','.faq .faq-item','.closing-inner>*','.footer-top>*','.footer-bottom'];
+  const revealTargets=all(revealSelectors.join(','));
+  revealTargets.forEach(target=>{
+   target.dataset.scrollReveal='true';delete target.dataset.revealed;
+   const fadeOnly=target.matches('.food-scene,.checkin-demo,.report-grid');
+   const staggerIndex=target.matches('.plan,.voice-grid>figure')?[...target.parentElement.children].indexOf(target):0;
+   gsap.fromTo(target,{opacity:0,...(fadeOnly?{}:{y:mobile?17:25})},{opacity:1,...(fadeOnly?{}:{y:0}),delay:staggerIndex*.065,duration:.65,ease:'power3.out',scrollTrigger:{trigger:target,start:'clamp(top 93%)',once:true},onComplete:()=>{target.dataset.revealed='true';}});
   });
-  gsap.from('.plan',{y:mobile?15:35,stagger:.12,duration:.8,ease:'power3.out',scrollTrigger:{trigger:'.plans-grid',start:'top 85%',once:true}});
+  // Keyboard navigation makes an unrevealed control available immediately.
+  const revealFocus=event=>{const target=event.target.closest('[data-scroll-reveal]');if(target){gsap.killTweensOf(target,'opacity,visibility,y');gsap.set(target,{autoAlpha:1,y:0});target.dataset.revealed='true';}};
+  document.addEventListener('focusin',revealFocus);
   gsap.fromTo('.about-crop img',{scale:1.075,y:mobile?0:15},{scale:1,y:0,ease:'none',scrollTrigger:{trigger:'.about-photo',start:'top bottom',end:'bottom 35%',scrub:.8}});
   gsap.fromTo('.checkin-demo',{rotation:mobile?0:2,y:22},{rotation:0,y:0,ease:'none',scrollTrigger:{trigger:'.weekly-layout',start:'top 80%',end:'center center',scrub:.6}});
-  gsap.from('.voice-grid figure',{x:i=>mobile?0:(i===0?-22:22),y:mobile?18:0,stagger:.16,duration:.8,ease:'power3.out',scrollTrigger:{trigger:'.voice-grid',start:'top 85%',once:true}});
   gsap.to('.closing-lines',{rotation:10,scale:1.13,ease:'none',scrollTrigger:{trigger:'.closing',start:'top bottom',end:'bottom bottom',scrub:.8}});
+  return()=>document.removeEventListener('focusin',revealFocus);
  });
  ScrollTrigger.refresh();
 }
 addEventListener('saulo:motion',event=>{motionEnabled=event.detail.enabled;if(!motionEnabled){cycleTween?.kill();cyclePosition.p=cycle/7;paintCycle();if(window.gsap)gsap.set('.cycle-stop svg path,.cycle-stop svg rect,.cycle-stop svg circle',{clearProps:'strokeDasharray,strokeDashoffset'});}buildMotion();one('#replay').disabled=!motionEnabled;one('#replay').hidden=reduced.matches||Boolean(navigator.connection?.saveData);});buildMotion();
+addEventListener('saulo:playback',event=>{if(event.detail.playing&&!motionContext)buildMotion();});
 one('#replay').hidden=reduced.matches||Boolean(navigator.connection?.saveData);
 document.fonts?.ready.then(()=>{fitCyclePanels();ScrollTrigger?.refresh();});
 })();

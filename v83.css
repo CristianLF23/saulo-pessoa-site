@@ -114,3 +114,10 @@ html{scrollbar-gutter:stable}.menu-drawer{position:fixed;inset:0;width:100%;heig
 @media(max-width:360px){.continuation.closing-region .footer-top{gap:14px 18px;grid-template-columns:76px 1fr}.footer-brand{width:76px}.footer-address{font-size:11px}.footer-address strong{font-size:12px}.continuation.closing-region .footer-bottom{column-gap:17px}.continuation.closing-region .closing-inner h2{font-size:31px}}
 .experience .weekly>.weekly-avocado{width:64px;left:max(8px,calc((100% - 1256px)/2 - 76px));top:31%}
 @media(max-width:1000px){.experience .weekly>.weekly-avocado{width:44px;left:auto;right:12px;top:auto;bottom:0}}
+
+.disclosure-body,.disclosure-content{display:flow-root}
+.experience details[data-drawer]>summary svg{transition:transform .24s var(--ease);transform-origin:center}
+.experience details[data-drawer][data-expanded="true"]>summary svg{transform:rotate(45deg)}
+.experience details[data-drawer][data-expanded="false"]>summary svg{transform:rotate(0)}
+.disclosure-body[inert]{pointer-events:none}
+@media(prefers-reduced-motion:reduce){.experience details[data-drawer]>summary svg{transition:none}}

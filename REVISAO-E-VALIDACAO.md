@@ -1,4 +1,14 @@
-# Saulo Pessoa: site completo V8.6
+# Saulo Pessoa: site completo V8.8
+
+## Gavetas e revelações de rolagem V8.8
+
+Removidos a frase Selecione uma etapa para ver os detalhes e o botão Pausar ciclo. Órbita contínua e pausa global no rodapé preservadas. Os sete painéis do ciclo continuam com os detalhes permanentemente visíveis.
+
+Todos os 17 disclosures de conteúdo ganham gaveta GSAP reversível: acompanhamento, avaliação física, formação e 12 FAQs. Abertura de 380 ms e fechamento de 260 ms, com leve deslocamento e fade do conteúdo. Trocas rápidas partem da altura atual; teclado, pausa e movimento reduzido resolvem imediatamente. Sem JavaScript, details/summary mantêm a abertura nativa. Delegação cobre também disclosures inseridos depois, como o resumo do questionário.
+
+62 elementos e grupos abaixo da hero ganham revelação ao entrar na tela, com 17 px no celular e 25 px no desktop, curva power3.out e duração de 650 ms. Pequena sequência entre cartões. A hero mantém a entrada da introdução. As revelações iniciam após a intro; recarga volta à abertura, sem consumir os efeitos durante a restauração da rolagem. Nenhuma rolagem travada ou seção fixada. Preferência de movimento reduzido, pausa e acesso por teclado preservam conteúdo visível.
+
+QA MOBILE FIRST: os 17 disclosures abriram e fecharam no celular; clique invertido durante a animação terminou estável. Alteração de rolagem observada entre 0 e 0,92 px, sem salto ao topo. Movimento intermediário medido de 58/89 px na gaveta e opacidade 0,57 durante uma revelação. Recarga inicia em y=0 e revelações futuras em opacidade 0. Limites: sem validação em aparelho físico ou Safari.
 
 ## Detalhes permanentes e encerramento integrado V8.6
 
