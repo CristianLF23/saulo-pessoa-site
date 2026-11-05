@@ -6,14 +6,30 @@ let motionEnabled=one('#motion').getAttribute('aria-pressed')!=='true';
 const eligible=()=>motionEnabled&&!reduced.matches&&!navigator.connection?.saveData;
 let cycle=0,cycleTween=null,motionContext=null,question=0;
 const stops=all('[data-cycle]'),panels=all('.cycle-panel');
+const cyclePosition={p:0},cycleRoute=one('.cycle-route'),cycleLength=cycleRoute.getTotalLength();
+function paintCycle(){
+ const angle=-Math.PI/2+cyclePosition.p*Math.PI*2;
+ cycleRoute.style.strokeDasharray=String(cycleLength);cycleRoute.style.strokeDashoffset=String(cycleLength*(1-cyclePosition.p));
+ one('.cycle-marker').setAttribute('cx',250+190*Math.cos(angle));one('.cycle-marker').setAttribute('cy',250+190*Math.sin(angle));
+}
 function selectCycle(index,focus=false){
- cycle=index;cycleTween?.kill();
+ const previous=cycle;cycle=index;cycleTween?.kill();
+ all('.cycle-stop svg path,.cycle-stop svg rect,.cycle-stop svg circle').forEach(shape=>{shape.style.removeProperty('stroke-dasharray');shape.style.removeProperty('stroke-dashoffset');});
  panels.forEach((p,i)=>p.hidden=i!==index);
- stops.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===index)));
+ stops.forEach((b,i)=>{b.setAttribute('aria-pressed',String(i===index));b.classList.toggle('is-complete',i<index);});
+ const center=one('.cycle-active-icon');center.innerHTML=stops[index].querySelector('svg').outerHTML;
+ one('.cycle-center-step').textContent='Passo '+String(index+1).padStart(2,'0')+' de 07';
  one('[data-cycle-prev]').disabled=index===0;
  one('[data-cycle-next]').firstChild.textContent=index===6?'Rever o caminho':'Próximo passo';
  one('.cycle-count').textContent=String(index+1).padStart(2,'0')+' / 07';
- if(eligible()&&window.gsap)cycleTween=gsap.fromTo(panels[index],{y:9},{y:0,duration:.3,ease:'power2.out'});
+ if(eligible()&&window.gsap){
+  cycleTween=gsap.timeline({defaults:{ease:'power2.out'}})
+   .fromTo(panels[index],{y:9},{y:0,duration:.35},0)
+   .fromTo(center,{scale:.8,y:5},{scale:1,y:0,duration:.5},0)
+   .to(cyclePosition,{p:index/7,duration:previous===index?0:Math.min(.95,.4+Math.abs(index-previous)*.09),ease:'power2.inOut',onUpdate:paintCycle},0);
+  const strokes=[...stops[index].querySelectorAll('svg path,svg rect,svg circle')];
+  strokes.forEach(shape=>{const length=shape.getTotalLength();cycleTween.fromTo(shape,{strokeDasharray:length,strokeDashoffset:length},{strokeDashoffset:0,duration:.55,ease:'power2.out'},.06);});
+ }else{cyclePosition.p=index/7;paintCycle();}
  if(focus)stops[index].focus({preventScroll:true});
  window.ScrollTrigger?.refresh();
 }
@@ -24,6 +40,13 @@ stops.forEach((b,i)=>{
 one('[data-cycle-prev]').addEventListener('click',()=>selectCycle(Math.max(0,cycle-1)));
 one('[data-cycle-next]').addEventListener('click',()=>selectCycle((cycle+1)%7));
 one('.cycle-controls').hidden=false;selectCycle(0);
+function fitCyclePanels(){
+ const holder=one('.cycle-panels');let height=0;
+ panels.forEach(panel=>{const hidden=panel.hidden,style=panel.getAttribute('style');panel.hidden=false;Object.assign(panel.style,{position:'absolute',width:holder.clientWidth+'px',visibility:'hidden'});height=Math.max(height,panel.getBoundingClientRect().height);panel.hidden=hidden;if(style===null)panel.removeAttribute('style');else panel.setAttribute('style',style);});
+ holder.style.minHeight=Math.ceil(height)+'px';
+}
+fitCyclePanels();let panelWidth=0;
+new ResizeObserver(([entry])=>{if(Math.abs(entry.contentRect.width-panelWidth)<1)return;panelWidth=entry.contentRect.width;fitCyclePanels();window.ScrollTrigger?.refresh();}).observe(one('.cycle-panels'));
 let touchStart=null;
 one('.cycle-map').addEventListener('pointerdown',e=>{if(e.pointerType==='touch')touchStart={x:e.clientX,y:e.clientY};});
 one('.cycle-map').addEventListener('pointerup',e=>{if(!touchStart)return;const dx=e.clientX-touchStart.x,dy=e.clientY-touchStart.y;touchStart=null;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.6)selectCycle((cycle+(dx<0?1:6))%7);});
@@ -49,8 +72,9 @@ function buildMotion(){
  gsap.registerPlugin(ScrollTrigger);
  const mobile=innerWidth<761;
  motionContext=gsap.context(()=>{
-  const route=one('.cycle-route'),length=route.getTotalLength();
+  const route=one('.cycle-reveal'),length=route.getTotalLength();
   gsap.fromTo(route,{strokeDasharray:length,strokeDashoffset:length},{strokeDashoffset:0,ease:'none',scrollTrigger:{trigger:'.cycle-map',start:'top 85%',end:'bottom 45%',scrub:.6}});
+  gsap.from('.cycle-stop b',{scale:.78,y:8,stagger:.075,duration:.65,ease:'power3.out',scrollTrigger:{trigger:'.cycle-map',start:'top 78%',once:true}});
   all('[data-drift]').forEach(el=>{
    const delta=Number(el.dataset.drift)*(mobile?.45:1);
    gsap.fromTo(el,{y:delta*.4},{y:-delta*.6,rotation:'+=10',ease:'none',scrollTrigger:{trigger:el.closest('section'),start:'top bottom',end:'bottom top',scrub:.7,invalidateOnRefresh:true}});
@@ -70,7 +94,7 @@ function buildMotion(){
  });
  ScrollTrigger.refresh();
 }
-addEventListener('saulo:motion',event=>{motionEnabled=event.detail.enabled;buildMotion();one('#replay').disabled=!motionEnabled;one('#replay').hidden=reduced.matches||Boolean(navigator.connection?.saveData);});buildMotion();
+addEventListener('saulo:motion',event=>{motionEnabled=event.detail.enabled;if(!motionEnabled){cycleTween?.kill();cyclePosition.p=cycle/7;paintCycle();if(window.gsap)gsap.set('.cycle-stop svg path,.cycle-stop svg rect,.cycle-stop svg circle',{clearProps:'strokeDasharray,strokeDashoffset'});}buildMotion();one('#replay').disabled=!motionEnabled;one('#replay').hidden=reduced.matches||Boolean(navigator.connection?.saveData);});buildMotion();
 one('#replay').hidden=reduced.matches||Boolean(navigator.connection?.saveData);
-document.fonts?.ready.then(()=>ScrollTrigger?.refresh());
+document.fonts?.ready.then(()=>{fitCyclePanels();ScrollTrigger?.refresh();});
 })();

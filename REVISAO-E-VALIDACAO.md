@@ -1,5 +1,13 @@
 # Saulo Pessoa: site completo V8
 
+## Refinamento V8.1
+
+CTA flutuante Falar com o Saulo usa o WhatsApp oficial. O controle de movimento fica no rodapé. Sete ícones SVG autorais representam as etapas do acompanhamento; o arco e um marcador acompanham a seleção, com transição interrompível e reversível. Ícone central e destaque dos passos se atualizam juntos. Altura dos painéis é calculada pela maior etapa.
+
+A linha contínua agora percorre a altura real de toda a página, em vez de permanecer no fundo fixo. A ponta acompanha a rolagem e chega ao final do rodapé, com atualização após mudança de conteúdo e largura. O percurso fica nas margens para preservar a leitura. Corrigida sobreposição de ilustração no texto do CTA final.
+
+Ego: clique, End pelo teclado, troca rápida de etapas, percurso em quatro capítulos e final da página conferidos; sem erros JavaScript observados. Desktop 1440, celulares 390 e 320 sem overflow. CTA visível e endereço correto. Pausa pelo rodapé produz zero ScrollTriggers. Movimento reduzido desliga animações mantendo seleção das etapas e WhatsApp. Sem JavaScript mantém sete artigos e contato. Axe local final sem violações detectadas; resultados inconclusivos continuam registrados. Sem envio de mensagem, aparelho físico ou Safari.
+
 ## Revisão Nutrir a vida
 
 Revisão solicitada pelo usuário: mais alegria, profundidade no acompanhamento, informações recuperadas, ilustração botânica profissional e coreografia pela página. Site oficial e Engrena reinspecionados no Ego. Engrena forneceu o princípio de montagem e revelação, sem reutilização de sua identidade ou código.

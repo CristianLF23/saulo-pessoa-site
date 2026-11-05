@@ -4,7 +4,28 @@ const q=s=>document.querySelector(s),all=s=>[...document.querySelectorAll(s)];
 const reduce=matchMedia('(prefers-reduced-motion: reduce)'),connection=navigator.connection;
 const state={chapter:0,progress:0,paused:false,visible:true,foodVisible:false,intro:false};
 const video=q('#food'),poster=q('#poster'),motion=q('#motion'),canvas=q('#surface');
-const desktopCurve=q('.contour-live').getAttribute('d');
+let threadLength=1,threadHeight=1;
+function sizeThread(){
+ const area=q('.experience'),svg=q('.page-thread'),w=area.clientWidth,h=area.scrollHeight,mobile=w<761;
+ threadHeight=h;svg.setAttribute('viewBox',`0 0 ${w} ${h}`);
+ let y=mobile?440:260;
+ let d=mobile?`M${w-12} 84C${w-29} 165 ${w-25} 315 ${w-12} ${y}`:`M24 136C${w*.28} 66 ${w*.72} 78 ${w-18} ${y}`;
+ const origin=area.getBoundingClientRect().top;
+ const stops=all('main>section,.continuation>section').map(s=>s.getBoundingClientRect().bottom-origin+20).filter(v=>v>y+90&&v<h-80);
+ for(const end of [...stops,h-25]){
+  if(end<=y)continue;const span=end-y;
+  d+=`C${w-(mobile?5:4)} ${y+span*.28} ${w-(mobile?27:75)} ${y+span*.72} ${w-(mobile?12:18)} ${end}`;y=end;
+ }
+ all('.page-thread path').forEach(p=>p.setAttribute('d',d));threadLength=q('.contour-live').getTotalLength();
+}
+function paintThread(progress){
+ const path=q('.contour-live'),target=Math.min(threadHeight-25,progress*(threadHeight-innerHeight*.74)+innerHeight*.74);
+ let lo=0,hi=threadLength;
+ for(let i=0;i<13;i++){const mid=(lo+hi)/2;if(path.getPointAtLength(mid).y<target)lo=mid;else hi=mid;}
+ const length=(lo+hi)/2,point=path.getPointAtLength(length);
+ path.style.strokeDasharray=String(threadLength);path.style.strokeDashoffset=String(threadLength-length);
+ q('.thread-tip').setAttribute('cx',point.x);q('.thread-tip').setAttribute('cy',point.y);
+}
 const save=()=>Boolean(connection&&connection.saveData);
 const canMove=()=>!state.paused&&!reduce.matches&&!save()&&state.visible&&!document.hidden;
 let gl=null,program=null,uniforms={},frame=0,last=0,clock=0,started=false,pending=false,failed=false,scrollContext=null,introTimeline=null,introTimer=0,phaseTimeline=null;
@@ -50,13 +71,14 @@ motion.addEventListener('click',()=>{state.paused=!state.paused;setupScroll();sy
 function setupScroll(){
  scrollContext?.revert();scrollContext=null;
  window.dispatchEvent(new CustomEvent('saulo:motion',{detail:{enabled:!reduce.matches&&!save()&&!state.paused}}));
- all('.contour path').forEach(path=>path.setAttribute('d',innerWidth<761?'M1400 10C1320 260 1500 620 1320 850S1140 1010 1240 1110 40 1150 80 1450 1220 1730 1350 1880':desktopCurve));
- const contour=q('.contour-live'),length=contour.getTotalLength();
- if(reduce.matches||save()||state.paused||!window.gsap||!window.ScrollTrigger){contour.style.strokeDasharray='none';return;}
+ sizeThread();
+ const contour=q('.contour-live');
+ if(reduce.matches||save()||state.paused||!window.gsap||!window.ScrollTrigger){contour.style.strokeDasharray='none';q('.thread-tip').style.visibility='hidden';return;}
+ q('.thread-tip').style.visibility='';
  gsap.registerPlugin(ScrollTrigger);
  scrollContext=gsap.context(()=>{
-  gsap.set(contour,{strokeDasharray:length,strokeDashoffset:length*.7});
-  const driver={p:0};gsap.to(driver,{p:1,ease:'none',scrollTrigger:{trigger:'.experience',start:'top top',end:'bottom bottom',scrub:.4,onUpdate:self=>{state.progress=self.progress;}},onUpdate:()=>{gsap.set(contour,{strokeDashoffset:length*(.7-driver.p*.7)});}});
+  const driver={p:0};paintThread(0);
+  gsap.to(driver,{p:1,ease:'none',scrollTrigger:{trigger:'.experience',start:'top top',end:'bottom bottom',scrub:.35,onUpdate:self=>{state.progress=self.progress;},onRefresh:()=>paintThread(driver.p)},onUpdate:()=>paintThread(driver.p)});
   if(innerWidth>760){gsap.to('.hero-portrait',{y:-28,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:.4}});gsap.to('.food-scene',{y:-38,ease:'none',scrollTrigger:{trigger:'.real-life',start:'top bottom',end:'bottom top',scrub:.5}});}
   all('[data-scene]').forEach((section,i)=>ScrollTrigger.create({trigger:section,start:'top 65%',end:'bottom 35%',onEnter:()=>{state.chapter=i%3;},onEnterBack:()=>{state.chapter=i%3;}}));
  });
@@ -106,6 +128,7 @@ q('#skip-intro').addEventListener('click',closeIntro);intro.addEventListener('ke
 reduce.addEventListener('change',()=>{if(reduce.matches){closeIntro();video.hidden=true;poster.hidden=false;canvas.hidden=true;}else if(gl)canvas.hidden=false;setupScroll();sync();});connection?.addEventListener('change',()=>{if(save()){closeIntro();video.hidden=true;poster.hidden=false;canvas.hidden=true;}else if(gl)canvas.hidden=false;setupScroll();sync();});
 let lastWidth=innerWidth;let resizeTimer;addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{if(state.intro)closeIntro();resize();if(Math.abs(lastWidth-innerWidth)>30){lastWidth=innerWidth;setupScroll();}},120);},{passive:true});
 if(!reduce.matches&&!save())setupGL();else canvas.hidden=true;
+window.ScrollTrigger?.addEventListener('refreshInit',sizeThread);
 setupScroll();sync();
 if(!introSeen()||new URLSearchParams(location.search).get('intro')==='1')showIntro();
 document.fonts?.ready.then(()=>window.ScrollTrigger?.refresh());
