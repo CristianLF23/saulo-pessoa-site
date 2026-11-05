@@ -1,4 +1,12 @@
-# Saulo Pessoa: site completo V8.5
+# Saulo Pessoa: site completo V8.6
+
+## Detalhes permanentes e encerramento integrado V8.6
+
+As sete etapas mostram O que acontece nesta etapa como conteúdo permanente, sem botão ou opção de fechar. Próximo passo, Voltar e os ícones preservam a navegação e a transição entre etapas. Pera junto à foto da seção Sobre removida. Todas as frutas da página com opacidade 1; a introdução e sua sequência de entrada/saída permanecem intactas.
+
+Encerramento e rodapé compartilham uma única superfície roxa animada, sem corte entre texturas, com um contexto WebGL a menos. Marca, endereço e contatos organizados em faixa compacta no desktop e duas colunas no celular. Informações, destinos, pausa, replay e privacidade preservados. O CTA flutuante dá lugar aos contatos do rodapé quando ele entra em cena, evitando sobreposição dos links.
+
+Ego: sete etapas com listas visíveis e sem controle de fechamento; clique no rótulo não recolhe o conteúdo. QA em 1440, 768, 390 e 320 px sem overflow horizontal, pera ausente e todas as frutas com opacidade 1. Rodapé com 220 px de altura no desktop e cerca de 370 px no celular. Pausa e movimento reduzido conferidos. Axe sem violações detectadas; contraste em canvas e três atributos ARIA permanecem inconclusivos. Sem aparelho físico ou Safari.
 
 ## Ajustes de hierarquia V8.5
 
@@ -10,7 +18,7 @@ Verificação no Ego em 1440, 768, 390 e 320 px sem overflow horizontal; quatro 
 
 Atualização de introdução: a apresentação é executada em todo carregamento ou recarregamento da página, sem bloqueio por sessionStorage. Pular, Escape, movimento reduzido e economia de dados continuam respeitados.
 
-Atualização das etapas: Próximo passo seleciona a próxima etapa e expande seu detalhe com animação de 380 ms. A expansão é reproduzida mesmo quando a etapa já estava aberta. Voltar e seleção direta dos ícones preservam comportamento. Reduced motion abre imediatamente. Teste no Ego confirmou duas recargas consecutivas com intro visível mesmo com a flag antiga, expansão de cerca de 30 para 130 px e reabertura animada ao revisitar a etapa.
+Histórico V8.4: Próximo passo abria o detalhe com animação de 380 ms. Na V8.6, esse disclosure foi substituído por conteúdo sempre visível, conforme novo pedido do usuário.
 
 ## Refinamento V8.3
 

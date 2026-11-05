@@ -19,15 +19,15 @@ html{scrollbar-gutter:stable}.menu-drawer{position:fixed;inset:0;width:100%;heig
 
 /* The botanical layer lives in the gutters, never in the reading flow. */
 .experience .botanical:not(.welcome-fruit){pointer-events:none}
-.experience .botanical:where(:not(.welcome-fruit,.hero-orange,.hero-fig,.cycle-orange,.cycle-pear)){opacity:.45}
+
 .continuation .weekly,.continuation .voices{position:relative;isolation:isolate}
 .continuation .weekly>.wrap,.continuation .voices>.wrap{position:relative;z-index:1}
-.experience .included-papaya{position:absolute;float:none;width:64px;left:max(8px,calc((100% - 1256px)/2 - 76px));right:auto;top:67%;bottom:auto;margin:0;z-index:0;opacity:.24}
-.experience .voices-cherry{position:absolute;width:83px;left:auto;right:max(12px,calc((100% - 1256px)/2 - 67px));top:-49px;z-index:0;opacity:.3}
+.experience .included-papaya{position:absolute;float:none;width:64px;left:max(8px,calc((100% - 1256px)/2 - 76px));right:auto;top:67%;bottom:auto;margin:0;z-index:0;}
+.experience .voices-cherry{position:absolute;width:83px;left:auto;right:max(12px,calc((100% - 1256px)/2 - 67px));top:-49px;z-index:0;}
 .continuation .voices h2{padding-right:0}
-.experience .weekly-avocado{left:max(12px,calc((100% - 1256px)/2 - 70px));right:auto;top:31%;width:80px;opacity:.3}
+.experience .weekly-avocado{left:max(12px,calc((100% - 1256px)/2 - 70px));right:auto;top:31%;width:80px;}
 .continuation .weekly>.wrap .weekly-avocado{left:-76px;width:64px}
-.experience .closing>.botanical{opacity:.3;z-index:0}
+.experience .closing>.botanical{z-index:0}
 .continuation .closing-inner{position:relative;z-index:1}
 .page-thread .contour-ghost{opacity:.055;stroke-width:.8}
 .page-thread .contour-live{opacity:.2;stroke-width:1}
@@ -44,16 +44,15 @@ html{scrollbar-gutter:stable}.menu-drawer{position:fixed;inset:0;width:100%;heig
 .continuation .plan-featured>.violet-surface{border-radius:inherit}
 .continuation .plan-featured>*:not(.violet-surface){position:relative}
 .continuation .plan-featured>.plan-tag{position:absolute}
-.continuation .footer[data-violet]{background:#281232;isolation:isolate}
+
 @media(hover:hover) and (pointer:fine){.mountain-stops .phase-tab:hover .phase-hint{transform:translateX(2px)}}
 @media(max-width:1000px){.experience .included-papaya{left:9px;width:75px;top:auto;bottom:0}.continuation .weekly>.wrap .weekly-avocado{left:-15px;width:64px;top:-42px}.experience .voices-cherry{right:14px;width:65px;top:-45px}}
 @media(max-width:760px){
- .experience .botanical:where(:not(.welcome-fruit,.hero-orange,.hero-fig,.cycle-orange,.cycle-pear)){opacity:.35}
- .experience .included-papaya{width:50px;left:5px;bottom:0;opacity:.15}
- .experience .voices-cherry{width:60px;top:-42px;right:12px;opacity:.24}
+
+ .experience .included-papaya{width:50px;left:5px;bottom:0;}
+ .experience .voices-cherry{width:60px;top:-42px;right:12px;}
  .continuation .voices h2{padding-right:0;font-size:28px}
- .experience .weekly-avocado{opacity:.25}
- .experience .closing>.botanical{position:absolute;order:initial;top:auto;bottom:15px;width:75px;margin:0;opacity:.18}
+ .experience .closing>.botanical{position:absolute;order:initial;top:auto;bottom:15px;width:75px;margin:0;}
  .experience .closing-orange{left:8px;right:auto}.experience .closing-banana{left:auto;right:8px}
  .page-thread .contour-live{opacity:.13}.page-thread .contour-ghost{opacity:.035}.page-thread .thread-tip{opacity:.22}
  .mountain-stops .phase-tab strong{gap:3px;padding:5px}
@@ -61,3 +60,57 @@ html{scrollbar-gutter:stable}.menu-drawer{position:fixed;inset:0;width:100%;heig
 }
 @media(max-width:360px){.continuation .voices h2{font-size:25px}.mountain-stops .phase-tab strong{font-size:10px}.mountain-stops .phase-tab .phase-hint{width:11px;height:11px}}
 @media(prefers-reduced-motion:reduce){.mountain-stops .phase-tab .phase-hint{transition:none}}
+
+/* Details are permanently visible, without a disclosure control. */
+.cycle-detail-label{font-size:13px;font-weight:650;line-height:1.5;margin:19px 0 0;color:#271336}
+.experience .botanical{opacity:1}
+
+/* The closing message and footer share one continuous purple surface. */
+.closing-region{background:#281232;position:relative;isolation:isolate}
+.continuation.closing-region .closing,.continuation.closing-region .footer{background:transparent}
+.continuation.closing-region .closing{padding-top:68px;padding-bottom:55px}
+.continuation.closing-region .closing-orange{top:115px;width:125px}
+.continuation.closing-region .closing-banana{top:50px;width:125px}
+.continuation.closing-region .closing-lines{opacity:.18}
+.continuation.closing-region .footer{padding-top:0}
+.continuation.closing-region .footer-top{grid-template-columns:150px minmax(270px,1fr) minmax(245px,.75fr);gap:35px;align-items:center;border-top:1px solid #C9BCD845;padding-top:23px;padding-bottom:22px}
+.footer-brand{width:140px;display:block!important;min-height:0!important}
+.footer-brand img{display:block;width:100%;height:auto}
+.footer-address{font-style:normal;font-size:13px;line-height:1.7;color:#E3D6EA}
+.footer-address strong{display:block;color:#F5F0E8;font-size:14px;margin-bottom:4px}
+.footer-address>span{display:block}
+.footer-address .footer-online{color:#F5F0E8;margin-top:6px}
+.footer-contact{display:flex;flex-wrap:wrap;align-items:center;column-gap:22px;row-gap:0}
+.continuation .footer-contact>a{font-size:13px;line-height:1.5;min-height:36px}
+.contact-short{display:none}
+.continuation.closing-region .footer-bottom{display:flex;align-items:center;flex-wrap:wrap;gap:2px 24px;padding-top:10px;padding-bottom:15px;border-top-color:#C9BCD830}
+.continuation.closing-region .footer-bottom>span{order:0;width:auto;margin:0 auto 0 0;font-size:11px}
+.continuation.closing-region .footer-bottom :is(a,button){font-size:11px;min-height:44px}
+.continuation.closing-region .footer-bottom #replay{margin:0}
+.continuation.closing-region .footer-bottom #motion{margin:0}
+.footer-in-view .floating-whatsapp:not(:focus){visibility:hidden;pointer-events:none}
+@media(min-width:761px){.closing-region .closing-inner{max-width:1256px}.continuation.closing-region .closing-inner h2{font-size:clamp(38px,4vw,58px)}}
+@media(max-width:1000px) and (min-width:761px){.continuation.closing-region .footer-top{grid-template-columns:115px minmax(230px,1fr) 205px;gap:23px}.footer-brand{width:110px}.footer-address,.continuation .footer-contact>a{font-size:12px}.continuation.closing-region .closing-orange{right:18%;width:100px}.continuation.closing-region .closing-banana{right:4%;width:100px}}
+@media(max-width:760px){
+ .continuation.closing-region .closing{padding-top:48px;padding-bottom:72px;gap:0}
+ .continuation.closing-region .closing-orange,.continuation.closing-region .closing-banana{top:auto;bottom:8px;width:57px}
+ .continuation.closing-region .closing-orange{left:22px;right:auto}.continuation.closing-region .closing-banana{right:22px;left:auto}
+ .continuation.closing-region .closing-inner{padding:0}
+ .continuation.closing-region .footer-top{display:grid;grid-template-columns:84px 1fr;gap:15px 24px;align-items:center;padding-top:18px;padding-bottom:18px}
+ .footer-brand{width:84px;grid-column:1;grid-row:1}
+ .footer-contact{grid-column:2;grid-row:1;gap:0 18px;justify-content:flex-start}
+ .continuation .footer-contact>a{font-size:12px;min-height:44px}
+ .footer-contact>a:first-child{width:100%;font-size:14px;font-weight:600}
+ .contact-full{display:none}.contact-short{display:inline}
+ .footer-address{grid-column:1/-1;grid-row:2;font-size:12px;line-height:1.6}
+ .footer-address strong{display:inline;font-size:13px;margin:0 8px 0 0}
+ .footer-address>span:first-of-type{display:inline}
+ .footer-address .footer-online{margin-top:5px;font-size:12px}
+ .continuation.closing-region .footer-bottom{gap:0 20px;padding-top:8px;padding-bottom:20px}
+ .continuation.closing-region .footer-bottom>span{width:100%;order:2;font-size:10px;line-height:1.6;padding-top:9px}
+ .continuation.closing-region .footer-bottom #motion,.continuation.closing-region .footer-bottom #replay{order:1;font-size:11px}
+ .continuation.closing-region .footer-bottom>a{order:0;font-size:11px}
+}
+@media(max-width:360px){.continuation.closing-region .footer-top{gap:14px 18px;grid-template-columns:76px 1fr}.footer-brand{width:76px}.footer-address{font-size:11px}.footer-address strong{font-size:12px}.continuation.closing-region .footer-bottom{column-gap:17px}.continuation.closing-region .closing-inner h2{font-size:31px}}
+.experience .weekly>.weekly-avocado{width:64px;left:max(8px,calc((100% - 1256px)/2 - 76px));top:31%}
+@media(max-width:1000px){.experience .weekly>.weekly-avocado{width:44px;left:auto;right:12px;top:auto;bottom:0}}
