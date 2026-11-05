@@ -15,3 +15,4 @@ html{scrollbar-gutter:stable}.menu-drawer{position:fixed;inset:0;width:100%;heig
 .drawer-panel{width:min(430px,calc(100% - 32px))}
 .continuation .included .included-context{color:#66546C}
 .no-script-nav{display:flex;flex-wrap:wrap;gap:0 24px;padding-block:16px;border-bottom:1px solid #27133626}.no-script-nav a{font-size:14px;display:flex;align-items:center;min-height:44px;text-underline-offset:5px}
+.cycle-detail-body{display:flow-root}

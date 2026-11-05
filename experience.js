@@ -129,11 +129,9 @@ const intro=q('.intro'),curtain=q('.intro-curtain'),introLogo=q('#intro-logo');l
 function closeIntro(){
  clearTimeout(introTimer);introTimeline?.kill();introTimeline=null;state.intro=false;if(window.gsap)gsap.set('.hero-copy',{clearProps:'transform'});intro.hidden=true;curtain.hidden=true;q('.experience').inert=false;motion.inert=false;document.body.classList.remove('is-intro');q('#header-logo').style.visibility='';if(intro.contains(document.activeElement)){(introOrigin||q('#hero-content')).focus({preventScroll:true});}sync();
 }
-function introSeen(){try{return sessionStorage.getItem('saulo-site-v8')==='1';}catch{return false;}}
 function showIntro(replay=false){
  if(reduce.matches||save()||!window.gsap||state.paused)return;
  introOrigin=replay?q('#replay'):null;window.scrollTo({top:0,behavior:'instant'});state.intro=true;intro.hidden=false;curtain.hidden=false;q('.experience').inert=true;motion.inert=true;document.body.classList.add('is-intro');q('#header-logo').style.visibility='hidden';q('#skip-intro').focus({preventScroll:true});
- try{sessionStorage.setItem('saulo-site-v8','1');}catch{}
  introTimer=setTimeout(closeIntro,7000);
  gsap.set(curtain,{clearProps:'clipPath'});gsap.set('#welcome-opening',{attr:{r:0,cx:innerWidth/2,cy:innerHeight/2}});
  gsap.set(introLogo,{x:0,y:12,scale:.95,opacity:0,clipPath:'inset(0% 0% 0% 0%)'});
@@ -168,6 +166,6 @@ window.sauloRefreshLayout=()=>{
  if(!reduce.matches&&!save()&&!state.paused)paintThread(Math.max(0,Math.min(1,scrollY/Math.max(1,threadHeight-innerHeight))));
 };
 setupScroll();sync();
-if(!introSeen()||new URLSearchParams(location.search).get('intro')==='1')showIntro();
+showIntro();
 document.fonts?.ready.then(()=>window.ScrollTrigger?.refresh());
 })();

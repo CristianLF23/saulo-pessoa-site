@@ -1,5 +1,9 @@
 # Saulo Pessoa: site completo V8.3
 
+Atualização de introdução: a apresentação é executada em todo carregamento ou recarregamento da página, sem bloqueio por sessionStorage. Pular, Escape, movimento reduzido e economia de dados continuam respeitados.
+
+Atualização das etapas: Próximo passo seleciona a próxima etapa e expande seu detalhe com animação de 380 ms. A expansão é reproduzida mesmo quando a etapa já estava aberta. Voltar e seleção direta dos ícones preservam comportamento. Reduced motion abre imediatamente. Teste no Ego confirmou duas recargas consecutivas com intro visível mesmo com a flag antiga, expansão de cerca de 30 para 130 px e reabertura animada ao revisitar a etapa.
+
 ## Refinamento V8.3
 
 | Antes | Depois | Motivo |

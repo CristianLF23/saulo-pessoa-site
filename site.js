@@ -41,4 +41,4 @@ drawerReduce.addEventListener('change',()=>{if(drawer.open&&drawerReduce.matches
 addEventListener('resize',()=>{if(innerWidth>760&&drawer.open)closeMenu({immediate:true,restoreFocus:false});},{passive:true});
 const hunger=$('#hunger'),hungerValue=$('#hunger-value');hunger.addEventListener('input',()=>{hungerValue.value=hunger.value;hunger.style.setProperty('--value',Number(hunger.value)*10+'%');hunger.setAttribute('aria-valuetext',hunger.value+' de 10');});
 let disclosureFrame=0;
-$$('details').forEach(d=>d.addEventListener('toggle',()=>{cancelAnimationFrame(disclosureFrame);disclosureFrame=requestAnimationFrame(()=>window.sauloRefreshLayout?.());}));
+$$('details').forEach(d=>d.addEventListener('toggle',()=>{if(d.dataset.animating==='true')return;cancelAnimationFrame(disclosureFrame);disclosureFrame=requestAnimationFrame(()=>window.sauloRefreshLayout?.());}));
