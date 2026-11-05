@@ -18,7 +18,7 @@ function selectCycle(index,focus=false){
  panels.forEach((p,i)=>p.hidden=i!==index);
  stops.forEach((b,i)=>{b.setAttribute('aria-pressed',String(i===index));b.classList.toggle('is-complete',i<index);});
  const center=one('.cycle-active-icon');center.innerHTML=stops[index].querySelector('svg').outerHTML;
- one('.cycle-center-step').textContent='Passo '+String(index+1).padStart(2,'0')+' de 07';
+ one('.cycle-center-step').textContent='Etapa '+String(index+1).padStart(2,'0')+' de 07';
  one('[data-cycle-prev]').disabled=index===0;
  one('[data-cycle-next]').firstChild.textContent=index===6?'Rever o caminho':'Próximo passo';
  one('.cycle-count').textContent=String(index+1).padStart(2,'0')+' / 07';
@@ -31,7 +31,7 @@ function selectCycle(index,focus=false){
   strokes.forEach(shape=>{const length=shape.getTotalLength();cycleTween.fromTo(shape,{strokeDasharray:length,strokeDashoffset:length},{strokeDashoffset:0,duration:.55,ease:'power2.out'},.06);});
  }else{cyclePosition.p=index/7;paintCycle();}
  if(focus)stops[index].focus({preventScroll:true});
- window.ScrollTrigger?.refresh();
+ window.dispatchEvent(new CustomEvent('saulo:cycle-selection'));window.ScrollTrigger?.refresh();
 }
 stops.forEach((b,i)=>{
  b.addEventListener('click',()=>selectCycle(i));
@@ -77,15 +77,12 @@ function buildMotion(){
   gsap.from('.cycle-stop b',{scale:.78,y:8,stagger:.075,duration:.65,ease:'power3.out',scrollTrigger:{trigger:'.cycle-map',start:'top 78%',once:true}});
   all('[data-drift]').forEach(el=>{
    const delta=Number(el.dataset.drift)*(mobile?.45:1);
-   gsap.fromTo(el,{y:delta*.4},{y:-delta*.6,rotation:'+=10',ease:'none',scrollTrigger:{trigger:el.closest('section'),start:'top bottom',end:'bottom top',scrub:.7,invalidateOnRefresh:true}});
+  gsap.fromTo(el,{y:delta*.12},{y:-delta*.12,ease:'none',scrollTrigger:{trigger:el.closest('section'),start:'top bottom',end:'bottom top',scrub:.7,invalidateOnRefresh:true}});
   });
-  const path=one('.path-live'),l=path.getTotalLength();
-  gsap.fromTo(path,{strokeDasharray:l,strokeDashoffset:l},{strokeDashoffset:0,ease:'none',scrollTrigger:{trigger:'.method',start:'top 75%',end:'center 40%',scrub:.5}});
   all('main section').forEach(section=>{
    const heading=section.querySelector('h2');if(!heading)return;
    gsap.from(heading,{y:mobile?14:26,duration:.8,ease:'power3.out',scrollTrigger:{trigger:heading,start:'top 92%',once:true}});
   });
-  gsap.from('.report-card',{y:mobile?18:42,rotation:i=>mobile?0:(i-1.5)*1.2,duration:.8,stagger:.1,ease:'power3.out',scrollTrigger:{trigger:'.report-grid',start:'top 88%',once:true}});
   gsap.from('.plan',{y:mobile?15:35,stagger:.12,duration:.8,ease:'power3.out',scrollTrigger:{trigger:'.plans-grid',start:'top 85%',once:true}});
   gsap.fromTo('.about-crop img',{scale:1.075,y:mobile?0:15},{scale:1,y:0,ease:'none',scrollTrigger:{trigger:'.about-photo',start:'top bottom',end:'bottom 35%',scrub:.8}});
   gsap.fromTo('.checkin-demo',{rotation:mobile?0:2,y:22},{rotation:0,y:0,ease:'none',scrollTrigger:{trigger:'.weekly-layout',start:'top 80%',end:'center center',scrub:.6}});

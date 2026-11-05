@@ -1,4 +1,22 @@
-# Saulo Pessoa: site completo V8
+# Saulo Pessoa: site completo V8.2
+
+## Revisão V8.2, 5 de novembro
+
+Correções de composição: frutas reposicionadas fora dos ícones do ciclo; margens de segurança na hero e encerramento; rotação adicional no drift removida. Encerramento mobile passa a conter frutas no fluxo após a mensagem. Saída da introdução recolhe frutas para dentro. Um figo redundante junto aos planos foi removido por falta de espaço útil.
+
+Ciclo com percurso decorativo constante de 18 segundos e pausa local, sem trocar o texto que a pessoa está lendo. Montanha SVG autoral apresenta as três fases do Método Vincere e a trilha acompanha a seleção. Prato central tem vídeo 1080p e rotação lenta em 65 segundos, independente do ponteiro. Linha global com curvas amplas e percurso até o fim da página.
+
+Roxo vivo procedural da V7 reaproveitado no método e encerramento, preservando o restante claro. Superfícies locais são inicializadas ao se aproximar da tela, com resolução de 55%, limite de 1200 por 900 e renderização somente quando visíveis. Pausa, documento oculto, reduced motion e Save Data desligam o movimento. Corrigida inicialização gráfica ao voltar da preferência de movimento reduzido.
+
+Relatórios em carrossel nativo com scroll-snap, botões, teclado, arrasto e ampliação. Relatório físico acessível por disclosure. Subtítulos decorativos removidos; Gama e online ganham destaque antes do CTA. Conteúdo repetido resumido e detalhes das etapas recolhidos. Informações comerciais e quiz.js preservados.
+
+QA local no Ego: desktop, 390, 320 e tablet 768 sem overflow; sete etapas e quatro relatórios presentes; frutas do ciclo sem sobreposição com ícones. Clique e seleção da montanha chegam ao topo; órbita se move sem alterar a seleção e pausa local congela o percurso. Vídeo confirma 1920 por 1080; rotação muda com o tempo e pausa global a congela. Carrossel por botão, Home/End, arrasto e modal conferidos sem abrir relatório ao arrastar. Reduced motion no carregamento mantém zero ScrollTriggers e mídia sem src; reativação inicializa shader claro e roxo. Sem JavaScript mantém sete etapas, três fases, quatro relatórios e WhatsApp.
+
+Varredura axe sem violações detectadas, com inconclusivos preservados. Sem erros JS observados nas coletas. Sem aparelho físico, Safari, leitor de tela ou envio de mensagens. O limite de render é uma escolha de implementação, não uma medição de FPS.
+
+Arquivos principais: index.html, experience.js, v8.js, v82.css e v82.js. Nenhuma dependência de produção ou asset de referência externo adicionado.
+
+Coleta final em 1440, 390, 320 e 768: nenhum overflow, nenhuma fruta de conteúdo fora da largura da tela e nenhum cruzamento entre frutas e ícones do ciclo; frutas finais dentro da seção. Rótulos decorativos e mouse da hero: zero ocorrências. Atendimento tem 14 px antes do CTA. Texto visível no main passou de 1378 para 1098 palavras nesta coleta; conteúdo aprofundado continua disponível nos disclosures. QA final axe: zero violações detectadas; limites e inconclusivos mantidos nos JSONs.
 
 ## Refinamento V8.1
 
